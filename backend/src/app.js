@@ -1,12 +1,20 @@
-const express = require('express');
-const cors = require('cors');
-const usersRoute = require('./routes/users');
-
+const express = require("express");
+const path = require("path");
 const app = express();
 
-app.use(cors());          // ← FIX CORS
 app.use(express.json());
 
-app.use('/api/users', usersRoute);
+// Servir frontend estático
+app.use(express.static(path.join(__dirname, "../public")));
+
+// Rutas API
+app.get("/api/users", (req, res) => {
+  res.json([{ name: "Luis" }]);
+});
+
+// Catch-all para SPA o páginas normales
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 module.exports = app;
