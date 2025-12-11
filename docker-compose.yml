@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: ./backend
+    container_name: devops-backend
+    ports:
+      - "3000:3000"
+    networks:
+      - devnet
+
+  frontend:
+    build: ./frontend
+    container_name: devops-frontend
+    ports:
+      - "3001:80"
+    networks:
+      - devnet
+
+networks:
+  devnet:
